@@ -21,7 +21,7 @@ VERSION=0.11.23
 # Codename "synthetic system strainer"
 #
 
-CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -O2 -std=gnu99
+CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -O2 -std=gnu99 -I/usr/local/include/breakpad/ 
 
 #
 # Pedantic flags
@@ -340,6 +340,7 @@ CORE_SRC = \
 	core-thrash.c \
 	core-ftrace.c \
 	core-try-open.c \
+	c_wrapper_api.cpp \
 	stress-ng.c
 
 SRC = $(CORE_SRC) $(STRESS_SRC)
@@ -369,7 +370,7 @@ OBJS += $(CONFIG_OBJS)
 
 stress-ng: $(OBJS)
 	@echo "LD $@"
-	@$(CC) $(CPPFLAGS) $(CFLAGS) $(OBJS) -lm $(LDFLAGS) -o $@
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(OBJS) -lm $(LDFLAGS) /usr/local/lib/libbreakpad_client.a /usr/lib/gcc/x86_64-linux-gnu/9/libstdc++.a -o $@
 	@sync
 
 makeconfig:

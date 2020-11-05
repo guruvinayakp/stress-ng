@@ -23,6 +23,7 @@
  *
  */
 #include "stress-ng.h"
+#include "c_wrapper_api.h"
 
 typedef struct {
 	const int opt;			/* optarg option */
@@ -2995,6 +2996,8 @@ int main(int argc, char **argv, char **envp)
 	int ret;
 
 	stress_set_proc_name_init(argc, argv, envp);
+	CExceptionHandler eh;
+        eh = newCExceptionHandlerSimple();
 
 	if (setjmp(g_error_env) == 1)
 		exit(EXIT_FAILURE);
